@@ -6,23 +6,32 @@ using DemoCrud.Repository.Models;
 using DemoCrud.Service.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace DemoCrud.API.Controllers
 {
     [Route("api/students")]
-    [ApiController]
+    //[ApiController]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _service;
-        public StudentController(IStudentService service)
+        private readonly ILogger<StudentController> _logger;
+        public StudentController(ILogger<StudentController> logger, IStudentService service)
         {
+            _logger = logger;
             _service = service;
         }
 
         [HttpGet("",Name ="Get")]
         public IActionResult GetStudents()
         {
-            return Ok(_service.Get());
+            var data = _service.Get();
+            if(data==null || data.Count()==0)
+            {
+                _logger.LogInformation("GetStudents() : No data ");
+                return StatusCode(204, "No data found");
+            }
+            return Ok(data);
         }
         [HttpGet("{id}")]
         public IActionResult GetStudent(long id)

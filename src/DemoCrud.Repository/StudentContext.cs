@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace DemoCrud.Repository
@@ -21,10 +23,7 @@ namespace DemoCrud.Repository
         {
             base.OnModelCreating(builder);
         }
-        //public DbSet<Student> Students { get; set; }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=StudentDB;Trusted_Connection=True;");
-        //}
+
+
     }
 }
